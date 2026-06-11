@@ -1,0 +1,141 @@
+{{ 'arelio.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'arelio.js' | asset_url }}" defer></script>
+
+<div class="arelio arelio-section arelio-hero">
+  <div class="arelio-container hero-grid">
+    <div>
+      {% if section.settings.tag_text != blank %}
+        <div class="tag">{{ section.settings.tag_text }}</div>
+      {% endif %}
+
+      <div class="hero">
+        {% if section.settings.heading != blank %}
+          <h1>
+            {{ section.settings.heading }}
+            {% if section.settings.heading_accent != blank %}
+              <span class="accent">{{ section.settings.heading_accent }}</span>
+            {% endif %}
+          </h1>
+        {% endif %}
+
+        {% if section.settings.subtext != blank %}
+          <p>{{ section.settings.subtext }}</p>
+        {% endif %}
+      </div>
+
+      <div class="btn-row">
+        {% if section.settings.button1_label != blank %}
+          <a class="btn btn-primary" href="{{ section.settings.button1_link | default: routes.all_products_collection_url }}">
+            {{ section.settings.button1_label }}
+          </a>
+        {% endif %}
+        {% if section.settings.button2_label != blank %}
+          <a class="btn btn-dark" href="{{ section.settings.button2_link | default: '#' }}">
+            {{ section.settings.button2_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="product-stage">
+      {% if section.settings.show_pillow %}
+        <div class="spin-wrap">
+          <div class="rotator">
+            <div class="pillow-layer p1"></div>
+            <div class="pillow-layer p2"></div>
+            <div class="pillow-layer p3"></div>
+            <div class="neck-hole"></div>
+            <div class="front-shine"></div>
+            <div class="tube"></div>
+            <div class="pump"></div>
+          </div>
+        </div>
+      {% endif %}
+      {% if section.settings.product_label != blank %}
+        <div class="product-label">{{ section.settings.product_label }}</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Arelio Hero",
+  "tag": "section",
+  "class": "arelio-section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Top tag",
+      "default": "🎮 Gaming · Work · Study · Travel"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Support your neck,"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "Heading highlight (cyan)",
+      "default": "not the pain."
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>Arelio is an inflatable neck support pillow designed for long hours at the desk, gaming, studying, working from home and traveling.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "button1_label",
+      "label": "Primary button label",
+      "default": "Buy Now 🛒"
+    },
+    {
+      "type": "url",
+      "id": "button1_link",
+      "label": "Primary button link",
+      "info": "Defaults to the all-products page if left empty."
+    },
+    {
+      "type": "text",
+      "id": "button2_label",
+      "label": "Secondary button label",
+      "default": "See How It Works ▶"
+    },
+    {
+      "type": "url",
+      "id": "button2_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Product visual"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pillow",
+      "label": "Show rotating CSS pillow",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "product_label",
+      "label": "Floating caption",
+      "default": "3D rotating product preview"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Arelio Hero"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,240 @@
+{{ 'arelio.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign usecases = section.blocks | where: 'type', 'usecase'
+  assign steps = section.blocks | where: 'type', 'step'
+-%}
+
+<div class="arelio arelio-section arelio-product-info">
+  <div class="arelio-container">
+
+    {%- comment -%} ----- Comfort intro (image / pillow + copy) ----- {%- endcomment -%}
+    <div class="grid-2">
+      <div class="product-photo">
+        {% if section.settings.image != blank %}
+          <img
+            src="{{ section.settings.image | image_url: width: 700 }}"
+            alt="{{ section.settings.image.alt | escape }}"
+            width="{{ section.settings.image.width }}"
+            height="{{ section.settings.image.height }}"
+            loading="lazy">
+        {% else %}
+          <div class="mini-product">
+            <div class="pillow-layer p1"></div>
+            <div class="pillow-layer p2"></div>
+            <div class="pillow-layer p3"></div>
+            <div class="neck-hole"></div>
+            <div class="front-shine"></div>
+            <div class="tube"></div>
+            <div class="pump"></div>
+          </div>
+        {% endif %}
+      </div>
+
+      <div>
+        {% if section.settings.heading != blank %}
+          <h2 class="section-title">
+            {{ section.settings.heading }}
+            {% if section.settings.heading_accent != blank %}
+              <span class="accent">{{ section.settings.heading_accent }}</span>
+            {% endif %}
+          </h2>
+        {% endif %}
+
+        {% if section.settings.paragraph_1 != blank %}
+          <p class="section-sub left">{{ section.settings.paragraph_1 }}</p>
+        {% endif %}
+        {% if section.settings.paragraph_2 != blank %}
+          <p class="section-sub left">{{ section.settings.paragraph_2 }}</p>
+        {% endif %}
+
+        <div class="btn-row">
+          {% if section.settings.button1_label != blank %}
+            <a class="btn btn-primary" href="{{ section.settings.button1_link | default: routes.all_products_collection_url }}">
+              {{ section.settings.button1_label }}
+            </a>
+          {% endif %}
+          {% if section.settings.button2_label != blank %}
+            <a class="btn btn-dark" href="{{ section.settings.button2_link | default: '#' }}">
+              {{ section.settings.button2_label }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} ----- Who is Arelio for ----- {%- endcomment -%}
+    {% if usecases.size > 0 %}
+      <div class="center" style="margin-top:60px;">
+        {% if section.settings.usecases_heading != blank %}
+          <h2 class="section-title">{{ section.settings.usecases_heading }}</h2>
+        {% endif %}
+        {% if section.settings.usecases_subtext != blank %}
+          <p class="section-sub">{{ section.settings.usecases_subtext }}</p>
+        {% endif %}
+        <div class="grid-5">
+          {% for block in usecases %}
+            <div class="use-case" {{ block.shopify_attributes }}>
+              <div>{{ block.settings.emoji }}</div>
+              <b>{{ block.settings.label }}</b>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {%- comment -%} ----- How it works ----- {%- endcomment -%}
+    {% if steps.size > 0 %}
+      <div class="center" style="margin-top:60px;">
+        {% if section.settings.steps_heading != blank %}
+          <h2 class="section-title">{{ section.settings.steps_heading }}</h2>
+        {% endif %}
+        {% if section.settings.steps_subtext != blank %}
+          <p class="section-sub">{{ section.settings.steps_subtext }}</p>
+        {% endif %}
+        <div class="grid-4">
+          {% for block in steps %}
+            <div class="card step" {{ block.shopify_attributes }}>
+              <div class="num">{{ forloop.index }}</div>
+              <h3>{{ block.settings.title }}</h3>
+              <p>{{ block.settings.text }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Arelio Product Info",
+  "tag": "section",
+  "class": "arelio-section-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Comfort intro"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product image",
+      "info": "Optional. If empty, the purple CSS pillow is shown instead."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Comfort that stays with you"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "Heading highlight (cyan)",
+      "default": "all session long."
+    },
+    {
+      "type": "richtext",
+      "id": "paragraph_1",
+      "label": "Paragraph 1",
+      "default": "<p>Long hours in front of a screen can create neck tension and poor posture. Arelio gives you a simple way to support your neck without a bulky chair attachment.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "paragraph_2",
+      "label": "Paragraph 2",
+      "default": "<p>Just place it around your neck, inflate with the hand pump and adjust the firmness to your comfort.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button1_label",
+      "label": "Primary button label",
+      "default": "Choose Your Pack"
+    },
+    {
+      "type": "url",
+      "id": "button1_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "button2_label",
+      "label": "Secondary button label",
+      "default": "Read FAQ"
+    },
+    {
+      "type": "url",
+      "id": "button2_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Who is Arelio for"
+    },
+    {
+      "type": "text",
+      "id": "usecases_heading",
+      "label": "Heading",
+      "default": "Who is Arelio for?"
+    },
+    {
+      "type": "richtext",
+      "id": "usecases_subtext",
+      "label": "Subtext",
+      "default": "<p>Arelio is made for people who sit, focus, travel and want a better daily comfort setup.</p>"
+    },
+    {
+      "type": "header",
+      "content": "How it works"
+    },
+    {
+      "type": "text",
+      "id": "steps_heading",
+      "label": "Heading",
+      "default": "How it works"
+    },
+    {
+      "type": "richtext",
+      "id": "steps_subtext",
+      "label": "Subtext",
+      "default": "<p>A simple four step comfort setup.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "usecase",
+      "name": "Use case",
+      "settings": [
+        { "type": "text", "id": "emoji", "label": "Emoji", "default": "🎮" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Gamers" }
+      ]
+    },
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Place it" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Put Arelio around your neck while sitting comfortably." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Arelio Product Info",
+      "blocks": [
+        { "type": "usecase", "settings": { "emoji": "🎮", "label": "Gamers" } },
+        { "type": "usecase", "settings": { "emoji": "💻", "label": "Desk Workers" } },
+        { "type": "usecase", "settings": { "emoji": "🎓", "label": "Students" } },
+        { "type": "usecase", "settings": { "emoji": "▶️", "label": "Creators" } },
+        { "type": "usecase", "settings": { "emoji": "✈️", "label": "Travelers" } },
+        { "type": "step", "settings": { "title": "Place it", "text": "Put Arelio around your neck while sitting comfortably." } },
+        { "type": "step", "settings": { "title": "Inflate", "text": "Use the hand pump to fill the pillow with air." } },
+        { "type": "step", "settings": { "title": "Adjust", "text": "Fine tune the support level until it feels right." } },
+        { "type": "step", "settings": { "title": "Focus", "text": "Keep gaming, working, studying or traveling with better support." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

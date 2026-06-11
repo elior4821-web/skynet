@@ -1,0 +1,658 @@
+/* ==========================================================================
+   Arelio — Shopify Online Store 2.0 styles
+   All rules are scoped under `.arelio` so they cannot leak into or break
+   the rest of the Dawn theme. CSS custom properties live on `.arelio`
+   (not :root) for the same reason.
+   ========================================================================== */
+
+.arelio {
+  --bg: #02070b;
+  --bg2: #06131b;
+  --card: #0b1d28;
+  --card2: #102a39;
+  --cyan: #24f1e5;
+  --cyan2: #07b5c8;
+  --purple: #7a2cff;
+  --purple2: #b06cff;
+  --text: #f5fbff;
+  --muted: #a8bac5;
+  --line: rgba(36, 241, 229, 0.24);
+  --shadow: 0 0 35px rgba(36, 241, 229, 0.18);
+  --radius: 24px;
+
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.arelio *,
+.arelio *::before,
+.arelio *::after {
+  box-sizing: border-box;
+}
+
+/* Every section paints its own dark gaming background so the look is the
+   same no matter what theme colors Dawn uses around it. */
+.arelio-section {
+  padding: 72px 0;
+  background:
+    radial-gradient(circle at 20% 5%, rgba(122, 44, 255, 0.25), transparent 28%),
+    radial-gradient(circle at 80% 10%, rgba(36, 241, 229, 0.14), transparent 28%),
+    linear-gradient(180deg, #010306, var(--bg), #010306);
+  overflow: hidden;
+}
+
+.arelio-container {
+  width: min(1180px, calc(100% - 28px));
+  margin: auto;
+}
+
+.arelio .accent { color: var(--cyan); }
+.arelio .muted { color: var(--muted); }
+.arelio .center { text-align: center; }
+
+.arelio .btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.arelio .btn {
+  display: inline-block;
+  border: 0;
+  border-radius: 15px;
+  padding: 16px 24px;
+  font-size: 17px;
+  font-weight: 900;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  transition: 0.25s;
+}
+
+.arelio .btn-primary {
+  color: #001315;
+  background: linear-gradient(135deg, var(--cyan), var(--cyan2));
+  box-shadow: 0 0 28px rgba(36, 241, 229, 0.35);
+}
+
+.arelio .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 44px rgba(36, 241, 229, 0.5);
+}
+
+.arelio .btn-dark {
+  color: white;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+}
+
+.arelio .btn-dark:hover {
+  color: var(--cyan);
+  border-color: var(--cyan);
+}
+
+/* ----- Headings ----- */
+.arelio .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(36, 241, 229, 0.07);
+  color: var(--cyan);
+  font-weight: 900;
+  margin-bottom: 22px;
+}
+
+.arelio .section-title {
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1.12;
+  letter-spacing: -1px;
+  margin: 0 0 16px;
+}
+
+.arelio .section-sub {
+  color: var(--muted);
+  font-size: 19px;
+  line-height: 1.7;
+  max-width: 780px;
+  margin: 0 auto 36px;
+}
+
+.arelio .section-sub.left { margin-left: 0; }
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+.arelio-hero { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+
+.arelio .hero-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 42px;
+}
+
+.arelio .hero h1 {
+  font-size: clamp(42px, 6vw, 82px);
+  line-height: 1.02;
+  letter-spacing: -2px;
+  margin: 0 0 22px;
+}
+
+.arelio .hero p {
+  color: #d9e8ef;
+  font-size: 21px;
+  line-height: 1.65;
+  max-width: 620px;
+  margin: 0 0 30px;
+}
+
+/* ==========================================================================
+   CSS rotating product (no video)
+   ========================================================================== */
+.arelio .product-stage {
+  min-height: 500px;
+  border-radius: 34px;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 50% 76%, rgba(122, 44, 255, 0.42), transparent 32%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 70px rgba(122, 44, 255, 0.25);
+}
+
+.arelio .product-stage::before {
+  content: "";
+  position: absolute;
+  width: 78%;
+  height: 78px;
+  bottom: 70px;
+  border-radius: 50%;
+  border: 4px solid rgba(176, 108, 255, 0.85);
+  box-shadow:
+    0 0 22px rgba(176, 108, 255, 0.95),
+    0 0 55px rgba(36, 241, 229, 0.22),
+    inset 0 0 24px rgba(36, 241, 229, 0.2);
+}
+
+.arelio .product-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, transparent, rgba(1, 5, 9, 0.36)),
+    radial-gradient(circle at 50% 50%, transparent 0 50%, rgba(0, 0, 0, 0.28));
+  pointer-events: none;
+}
+
+.arelio .spin-wrap {
+  position: relative;
+  width: 430px;
+  height: 340px;
+  transform-style: preserve-3d;
+  animation: arelioFloaty 3.6s ease-in-out infinite;
+  z-index: 2;
+}
+
+.arelio .rotator {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: arelioRotate 8s linear infinite;
+}
+
+@keyframes arelioRotate {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+@keyframes arelioFloaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.arelio .pillow-layer {
+  position: absolute;
+  left: 68px;
+  width: 290px;
+  height: 86px;
+  border-radius: 52% 52% 45% 45%;
+  background:
+    radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.25), transparent 24%),
+    linear-gradient(180deg, #b46bff 0%, #7429dc 58%, #35126f 100%);
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  box-shadow:
+    inset 0 15px 24px rgba(255, 255, 255, 0.18),
+    inset 0 -14px 22px rgba(0, 0, 0, 0.42),
+    0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.arelio .p1 { top: 54px; transform: translateZ(36px); }
+.arelio .p2 { top: 120px; transform: translateZ(18px); }
+.arelio .p3 { top: 186px; transform: translateZ(0); }
+
+.arelio .neck-hole {
+  position: absolute;
+  left: 165px;
+  top: 70px;
+  width: 96px;
+  height: 72px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, #02050a, #07111a 64%, rgba(176, 108, 255, 0.28));
+  box-shadow: inset 0 0 28px #000, 0 0 18px rgba(36, 241, 229, 0.12);
+  z-index: 4;
+  transform: translateZ(44px);
+}
+
+.arelio .front-shine {
+  position: absolute;
+  left: 84px;
+  top: 80px;
+  width: 250px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.12), transparent 58%);
+  z-index: 5;
+  pointer-events: none;
+  transform: translateZ(48px);
+}
+
+.arelio .tube {
+  position: absolute;
+  right: 36px;
+  bottom: 88px;
+  width: 120px;
+  height: 16px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #131313, #020202);
+  transform: rotate(14deg) translateZ(48px);
+  z-index: 6;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.55);
+}
+
+.arelio .pump {
+  position: absolute;
+  right: 0;
+  bottom: 48px;
+  width: 92px;
+  height: 52px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.24), transparent 24%),
+    linear-gradient(180deg, #181818, #020202);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transform: rotate(14deg) translateZ(58px);
+  z-index: 7;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.65);
+}
+
+.arelio .product-label {
+  position: absolute;
+  bottom: 22px;
+  right: 22px;
+  z-index: 4;
+  background: rgba(1, 5, 9, 0.78);
+  border: 1px solid var(--line);
+  color: var(--cyan);
+  padding: 12px 16px;
+  border-radius: 999px;
+  font-weight: 900;
+  box-shadow: var(--shadow);
+}
+
+/* Reduced-motion users get a still pillow */
+@media (prefers-reduced-motion: reduce) {
+  .arelio .rotator,
+  .arelio .spin-wrap { animation: none; }
+}
+
+/* ==========================================================================
+   Benefits strip
+   ========================================================================== */
+.arelio .features-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.arelio-benefits.lift .features-strip {
+  margin-top: -40px;
+  position: relative;
+  z-index: 4;
+}
+
+.arelio .mini-card {
+  min-height: 116px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(16, 42, 57, 0.95), rgba(6, 19, 27, 0.96));
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: var(--shadow);
+}
+
+.arelio .icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(36, 241, 229, 0.06);
+  color: var(--cyan);
+  display: grid;
+  place-items: center;
+  font-size: 25px;
+  flex-shrink: 0;
+}
+
+.arelio .mini-card b { display: block; margin-bottom: 5px; }
+.arelio .mini-card span { color: var(--muted); font-size: 14px; line-height: 1.45; }
+
+/* ==========================================================================
+   Shared grids + cards
+   ========================================================================== */
+.arelio .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; align-items: center; }
+.arelio .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.arelio .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.arelio .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+
+.arelio .card {
+  background: linear-gradient(180deg, rgba(16, 42, 57, 0.84), rgba(6, 19, 27, 0.94));
+  border: 1px solid rgba(36, 241, 229, 0.18);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.24);
+}
+
+.arelio .card h3 { font-size: 23px; margin: 0 0 12px; }
+.arelio .card p { color: var(--muted); line-height: 1.65; margin: 0; }
+
+/* Product photo (static purple pillow) */
+.arelio .product-photo {
+  min-height: 330px;
+  border-radius: 26px;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 50% 64%, rgba(122, 44, 255, 0.48), transparent 30%),
+    linear-gradient(135deg, #061018, #112837);
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.arelio .product-photo::before {
+  content: "";
+  position: absolute;
+  width: 72%;
+  height: 54px;
+  bottom: 52px;
+  border-radius: 50%;
+  border: 4px solid rgba(176, 108, 255, 0.86);
+  box-shadow: 0 0 22px rgba(176, 108, 255, 0.9);
+}
+
+.arelio .product-photo img {
+  position: relative;
+  z-index: 2;
+  max-width: 86%;
+  height: auto;
+  border-radius: 18px;
+}
+
+.arelio .mini-product {
+  position: relative;
+  width: 320px;
+  height: 245px;
+  transform: scale(0.95);
+  z-index: 2;
+}
+
+.arelio .mini-product .pillow-layer { left: 35px; width: 250px; height: 76px; }
+.arelio .mini-product .p1 { top: 28px; }
+.arelio .mini-product .p2 { top: 86px; }
+.arelio .mini-product .p3 { top: 144px; }
+.arelio .mini-product .neck-hole { left: 112px; top: 45px; width: 86px; height: 62px; }
+.arelio .mini-product .tube { right: 2px; bottom: 50px; width: 105px; height: 14px; }
+.arelio .mini-product .pump { right: -22px; bottom: 18px; width: 80px; height: 44px; }
+
+.arelio .use-case {
+  text-align: center;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.035);
+  padding: 22px 14px;
+}
+
+.arelio .use-case div { font-size: 36px; margin-bottom: 8px; }
+.arelio .use-case b { display: block; }
+
+/* ==========================================================================
+   Product offers
+   ========================================================================== */
+.arelio .price-card { padding: 0; overflow: hidden; position: relative; }
+
+.arelio .price-card.featured {
+  border-color: rgba(36, 241, 229, 0.7);
+  box-shadow: 0 0 40px rgba(36, 241, 229, 0.18);
+}
+
+.arelio .price-head {
+  min-height: 210px;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at center, rgba(122, 44, 255, 0.48), transparent 45%),
+    linear-gradient(180deg, #122637, #071119);
+  border-bottom: 1px solid rgba(36, 241, 229, 0.18);
+  overflow: hidden;
+}
+
+.arelio .price-head img { max-width: 80%; height: auto; border-radius: 14px; }
+
+.arelio .price-body { padding: 26px; }
+.arelio .price-body h3 { margin: 0 0 4px; font-size: 23px; }
+.arelio .price-body p { color: var(--muted); line-height: 1.65; margin: 0; }
+
+.arelio .price {
+  font-size: 42px;
+  color: var(--cyan);
+  font-weight: 900;
+  margin: 12px 0 18px;
+}
+
+.arelio .price .compare {
+  font-size: 20px;
+  color: var(--muted);
+  text-decoration: line-through;
+  margin-left: 10px;
+}
+
+.arelio .price-body form { margin-top: 18px; }
+.arelio .price-body .btn { width: 100%; }
+
+.arelio .best {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #001315;
+  background: linear-gradient(135deg, var(--cyan), var(--cyan2));
+  border-radius: 999px;
+  padding: 9px 18px;
+  font-weight: 900;
+  box-shadow: 0 0 28px rgba(36, 241, 229, 0.36);
+  z-index: 3;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   How it works (numbered steps)
+   ========================================================================== */
+.arelio .step { position: relative; }
+
+.arelio .num {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--cyan);
+  color: #001315;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+}
+
+/* ==========================================================================
+   FAQ
+   ========================================================================== */
+.arelio .faq-list {
+  max-width: 980px;
+  margin: auto;
+  display: grid;
+  gap: 12px;
+}
+
+.arelio details {
+  border: 1px solid rgba(36, 241, 229, 0.18);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(16, 42, 57, 0.76), rgba(6, 19, 27, 0.94));
+  overflow: hidden;
+}
+
+.arelio summary {
+  padding: 22px 24px;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 900;
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.arelio summary::-webkit-details-marker { display: none; }
+
+.arelio summary::after {
+  content: "+";
+  color: var(--cyan);
+  font-size: 26px;
+  line-height: 1;
+}
+
+.arelio details[open] summary::after { content: "-"; }
+
+.arelio details .faq-answer {
+  padding: 0 24px 22px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.arelio details .faq-answer p { margin: 0 0 10px; }
+
+/* ==========================================================================
+   Reviews
+   ========================================================================== */
+.arelio .stars {
+  color: var(--cyan);
+  letter-spacing: 4px;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.arelio .person {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.arelio .avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   CTA banner
+   ========================================================================== */
+.arelio .banner {
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  padding: 42px;
+  background:
+    radial-gradient(circle at 78% 50%, rgba(122, 44, 255, 0.35), transparent 25%),
+    linear-gradient(135deg, rgba(16, 42, 57, 0.9), rgba(6, 19, 27, 0.94));
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 20px;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Toast (created by arelio.js)
+   ========================================================================== */
+.arelio-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%) translateY(110px);
+  background: #001315;
+  color: #24f1e5;
+  border: 1px solid rgba(36, 241, 229, 0.24);
+  border-radius: 16px;
+  padding: 15px 20px;
+  z-index: 2000;
+  box-shadow: 0 0 35px rgba(36, 241, 229, 0.18);
+  transition: 0.3s;
+  font-weight: 900;
+  font-family: Arial, Helvetica, sans-serif;
+  pointer-events: none;
+}
+
+.arelio-toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 900px) {
+  .arelio .hero-grid,
+  .arelio .grid-2,
+  .arelio .banner { grid-template-columns: 1fr; }
+
+  .arelio .features-strip,
+  .arelio .grid-3,
+  .arelio .grid-4,
+  .arelio .grid-5 { grid-template-columns: 1fr; }
+
+  .arelio-benefits.lift .features-strip { margin-top: 0; }
+
+  .arelio .hero h1 { font-size: 44px; }
+  .arelio .hero p { font-size: 18px; }
+
+  .arelio .product-stage { min-height: 390px; }
+  .arelio .spin-wrap { transform: scale(0.76); }
+
+  .arelio-section { padding: 54px 0; }
+
+  .arelio .btn { width: 100%; }
+  .arelio .price-body .btn { width: 100%; }
+}

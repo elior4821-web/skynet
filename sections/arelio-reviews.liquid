@@ -1,0 +1,108 @@
+{{ 'arelio.css' | asset_url | stylesheet_tag }}
+
+<div class="arelio arelio-section arelio-reviews">
+  <div class="arelio-container center">
+    {% if section.settings.heading != blank %}
+      <h2 class="section-title">{{ section.settings.heading }}</h2>
+    {% endif %}
+    {% if section.settings.subtext != blank %}
+      <p class="section-sub">{{ section.settings.subtext }}</p>
+    {% endif %}
+
+    <div class="grid-3">
+      {% for block in section.blocks %}
+        <div class="card" {{ block.shopify_attributes }}>
+          {% if block.settings.stars > 0 %}
+            <div class="stars">
+              {%- for i in (1..block.settings.stars) -%}★{%- endfor -%}
+            </div>
+          {% endif %}
+
+          {% if block.settings.quote != blank %}
+            <p>{{ block.settings.quote }}</p>
+          {% endif %}
+
+          <div class="person">
+            <div class="avatar"
+              {% if block.settings.avatar %}style="background-image:url('{{ block.settings.avatar | image_url: width: 84 }}');"{% endif %}>
+            </div>
+            <b>{{ block.settings.name }}{% if block.settings.location != blank %}, {{ block.settings.location }}{% endif %}</b>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Arelio Reviews",
+  "tag": "section",
+  "class": "arelio-section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What customers say"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "range",
+          "id": "stars",
+          "label": "Stars",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "Perfect for long gaming sessions. It feels soft and easy to adjust."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Daniel"
+        },
+        {
+          "type": "text",
+          "id": "location",
+          "label": "Location",
+          "default": "LA"
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Avatar (optional)",
+          "info": "Falls back to a cyan/purple gradient if empty."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 9,
+  "presets": [
+    {
+      "name": "Arelio Reviews",
+      "blocks": [
+        { "type": "review", "settings": { "stars": 5, "quote": "Perfect for long gaming sessions. It feels soft and easy to adjust.", "name": "Daniel", "location": "LA" } },
+        { "type": "review", "settings": { "stars": 5, "quote": "I use it while working at my desk. Simple product, but very useful.", "name": "Maya", "location": "NYC" } },
+        { "type": "review", "settings": { "stars": 5, "quote": "Light, compact and comfortable. I keep it next to my laptop bag.", "name": "Chris", "location": "Miami" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

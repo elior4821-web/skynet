@@ -1,0 +1,66 @@
+{
+  "sections": {
+    "hero": {
+      "type": "arelio-hero",
+      "settings": {}
+    },
+    "benefits": {
+      "type": "arelio-benefits",
+      "blocks": {
+        "b1": { "type": "benefit", "settings": { "icon": "💨", "title": "Air Adjustable", "text": "Inflate or deflate until it feels right." } },
+        "b2": { "type": "benefit", "settings": { "icon": "🪶", "title": "Soft and Light", "text": "Comfortable for everyday use." } },
+        "b3": { "type": "benefit", "settings": { "icon": "⏱", "title": "Long Sessions", "text": "Made for gaming, work and study." } },
+        "b4": { "type": "benefit", "settings": { "icon": "🎒", "title": "Easy to Carry", "text": "Compact enough for travel." } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"]
+    },
+    "product_info": {
+      "type": "arelio-product-info",
+      "blocks": {
+        "u1": { "type": "usecase", "settings": { "emoji": "🎮", "label": "Gamers" } },
+        "u2": { "type": "usecase", "settings": { "emoji": "💻", "label": "Desk Workers" } },
+        "u3": { "type": "usecase", "settings": { "emoji": "🎓", "label": "Students" } },
+        "u4": { "type": "usecase", "settings": { "emoji": "▶️", "label": "Creators" } },
+        "u5": { "type": "usecase", "settings": { "emoji": "✈️", "label": "Travelers" } },
+        "s1": { "type": "step", "settings": { "title": "Place it", "text": "Put Arelio around your neck while sitting comfortably." } },
+        "s2": { "type": "step", "settings": { "title": "Inflate", "text": "Use the hand pump to fill the pillow with air." } },
+        "s3": { "type": "step", "settings": { "title": "Adjust", "text": "Fine tune the support level until it feels right." } },
+        "s4": { "type": "step", "settings": { "title": "Focus", "text": "Keep gaming, working, studying or traveling with better support." } }
+      },
+      "block_order": ["u1", "u2", "u3", "u4", "u5", "s1", "s2", "s3", "s4"]
+    },
+    "offers": {
+      "type": "arelio-product-offers",
+      "blocks": {
+        "o1": { "type": "offer", "settings": { "title": "Single Unit", "price_text": "$39.97", "description": "One Arelio inflatable neck support pillow." } },
+        "o2": { "type": "offer", "settings": { "title": "Double Bundle", "price_text": "$69.97", "description": "Two Arelio pillows for home, office or sharing.", "badge": "Most Popular", "featured": true } },
+        "o3": { "type": "offer", "settings": { "title": "Comfort Kit", "price_text": "$99.97", "description": "Arelio pillow with premium packaging and comfort bundle." } }
+      },
+      "block_order": ["o1", "o2", "o3"]
+    },
+    "reviews": {
+      "type": "arelio-reviews",
+      "blocks": {
+        "r1": { "type": "review", "settings": { "stars": 5, "quote": "Perfect for long gaming sessions. It feels soft and easy to adjust.", "name": "Daniel", "location": "LA" } },
+        "r2": { "type": "review", "settings": { "stars": 5, "quote": "I use it while working at my desk. Simple product, but very useful.", "name": "Maya", "location": "NYC" } },
+        "r3": { "type": "review", "settings": { "stars": 5, "quote": "Light, compact and comfortable. I keep it next to my laptop bag.", "name": "Chris", "location": "Miami" } }
+      },
+      "block_order": ["r1", "r2", "r3"]
+    },
+    "faq": {
+      "type": "arelio-faq",
+      "blocks": {
+        "f1": { "type": "faq", "settings": { "open": true, "question": "What is Arelio?", "answer": "<p>Arelio is an inflatable neck support pillow designed to help you stay comfortable during long sitting sessions such as gaming, working, studying and traveling.</p>" } },
+        "f2": { "type": "faq", "settings": { "question": "Who is this product for?", "answer": "<p>It is made for gamers, desk workers, students, creators, travelers and anyone who sits for long periods and wants adjustable neck support.</p>" } },
+        "f3": { "type": "faq", "settings": { "question": "How do I use it?", "answer": "<p>Place the pillow around your neck, use the hand pump to inflate it, then adjust the air level until it feels comfortable for you.</p>" } },
+        "f4": { "type": "faq", "settings": { "question": "Can I adjust the support level?", "answer": "<p>Yes. The inflatable design lets you add or release air to control the firmness and support level.</p>" } },
+        "f5": { "type": "faq", "settings": { "question": "Is it good for gaming and desk work?", "answer": "<p>Yes. Arelio is designed especially for long sitting sessions, including gaming, computer work, studying and streaming.</p>" } },
+        "f6": { "type": "faq", "settings": { "question": "Is this a medical device?", "answer": "<p>No. Arelio is a comfort product. It is not a medical device and does not replace professional medical advice or treatment.</p>" } },
+        "f7": { "type": "faq", "settings": { "question": "How long does shipping take?", "answer": "<p>Estimated delivery is usually 7 to 14 business days, depending on your location and shipping conditions.</p>" } },
+        "f8": { "type": "faq", "settings": { "question": "Do you offer returns?", "answer": "<p>Yes. We offer a 30 day return policy. Update this to match your store's real policy.</p>" } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8"]
+    }
+  },
+  "order": ["hero", "benefits", "product_info", "offers", "reviews", "faq"]
+}

@@ -1,0 +1,207 @@
+{{ 'arelio.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'arelio.js' | asset_url }}" defer></script>
+
+<div class="arelio arelio-section arelio-product-offers">
+  <div class="arelio-container center">
+    {% if section.settings.heading != blank %}
+      <h2 class="section-title">
+        {{ section.settings.heading }}
+        {% if section.settings.heading_accent != blank %}
+          <span class="accent">{{ section.settings.heading_accent }}</span>
+        {% endif %}
+      </h2>
+    {% endif %}
+    {% if section.settings.subtext != blank %}
+      <p class="section-sub">{{ section.settings.subtext }}</p>
+    {% endif %}
+
+    <div class="grid-3">
+      {% for block in section.blocks %}
+        {%- liquid
+          assign product = block.settings.product
+          assign has_product = false
+          if product != blank
+            assign has_product = true
+            assign variant = product.selected_or_first_available_variant
+          endif
+        -%}
+
+        <div class="card price-card{% if block.settings.featured %} featured{% endif %}" {{ block.shopify_attributes }}>
+          {% if block.settings.badge != blank %}
+            <div class="best">{{ block.settings.badge }}</div>
+          {% endif %}
+
+          <div class="price-head">
+            {% if section.settings.show_product_images and has_product and product.featured_image %}
+              <img
+                src="{{ product.featured_image | image_url: width: 600 }}"
+                alt="{{ product.featured_image.alt | escape }}"
+                width="{{ product.featured_image.width }}"
+                height="{{ product.featured_image.height }}"
+                loading="lazy">
+            {% else %}
+              <div class="mini-product" style="transform:scale(0.58);">
+                <div class="pillow-layer p1"></div>
+                <div class="pillow-layer p2"></div>
+                <div class="pillow-layer p3"></div>
+                <div class="neck-hole"></div>
+                <div class="front-shine"></div>
+                <div class="tube"></div>
+                <div class="pump"></div>
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="price-body">
+            <h3>
+              {%- if block.settings.title != blank -%}
+                {{ block.settings.title }}
+              {%- elsif has_product -%}
+                {{ product.title }}
+              {%- endif -%}
+            </h3>
+
+            <div class="price">
+              {%- if has_product -%}
+                {{ variant.price | money }}
+                {%- if variant.compare_at_price > variant.price -%}
+                  <span class="compare">{{ variant.compare_at_price | money }}</span>
+                {%- endif -%}
+              {%- elsif block.settings.price_text != blank -%}
+                {{ block.settings.price_text }}
+              {%- endif -%}
+            </div>
+
+            <p>
+              {%- if block.settings.description != blank -%}
+                {{ block.settings.description }}
+              {%- elsif has_product -%}
+                {{ product.description | strip_html | truncatewords: 22 }}
+              {%- endif -%}
+            </p>
+
+            {% if has_product %}
+              {% if variant.available %}
+                <form class="arelio-add-form" action="{{ routes.cart_add_url }}" method="post" accept-charset="UTF-8">
+                  <input type="hidden" name="id" value="{{ variant.id }}">
+                  <input type="hidden" name="quantity" value="1">
+                  <button type="submit" class="btn btn-primary">{{ block.settings.button_label | default: 'Add to Cart 🛒' }}</button>
+                </form>
+              {% else %}
+                <button type="button" class="btn btn-dark" disabled>Sold out</button>
+              {% endif %}
+            {% else %}
+              <a class="btn btn-primary" href="{{ block.settings.fallback_link | default: routes.all_products_collection_url }}">
+                {{ block.settings.button_label | default: 'Add to Cart 🛒' }}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Arelio Product Offers",
+  "tag": "section",
+  "class": "arelio-section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Choose your"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "Heading highlight (cyan)",
+      "default": "Arelio"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>Adjustable inflatable neck support for gaming, work, studying and travel.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_images",
+      "label": "Use product images instead of CSS pillow",
+      "info": "Off keeps the purple CSS pillow look. On shows each product's photo.",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "offer",
+      "name": "Offer",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Shopify product",
+          "info": "Title, price and the Add to Cart button are pulled from this product. Leave empty to use the manual fields below."
+        },
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Highlight this offer",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge text",
+          "info": "e.g. Most Popular. Leave empty for none."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Add to Cart 🛒"
+        },
+        {
+          "type": "header",
+          "content": "Manual override (used when no product is selected)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "price_text",
+          "label": "Price text",
+          "info": "e.g. $39.97"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "url",
+          "id": "fallback_link",
+          "label": "Button link",
+          "info": "Used only when no product is selected."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Arelio Product Offers",
+      "blocks": [
+        { "type": "offer", "settings": { "title": "Single Unit", "price_text": "$39.97", "description": "One Arelio inflatable neck support pillow." } },
+        { "type": "offer", "settings": { "title": "Double Bundle", "price_text": "$69.97", "description": "Two Arelio pillows for home, office or sharing.", "badge": "Most Popular", "featured": true } },
+        { "type": "offer", "settings": { "title": "Comfort Kit", "price_text": "$99.97", "description": "Arelio pillow with premium packaging and comfort bundle." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
