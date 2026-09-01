@@ -1,0 +1,45 @@
+:root {
+  --bg: #f5f6f4;
+  --surface: #ffffff;
+  --text: #1c231f;
+  --muted: #6b756e;
+  --primary: #2f6f4f;
+  --primary-contrast: #ffffff;
+  --border: #e1e4e0;
+  --danger: #b3413a;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", "Heebo", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+#root {
+  min-height: 100vh;
+}
